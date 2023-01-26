@@ -1,0 +1,44 @@
+
+{% extends 'base/base.html' %}
+{% block content %}
+
+
+
+<div class="container text-center">
+<h1 class="maintitle">My Tasks</h1>
+</div>
+
+<br>
+<div class="container">
+    <form method="GET">
+        <input class="form-control border-end-0 border rounded-pill" type="text" name="search-area" value="{{search_input}}" placeholder="Enter a task and press enter or leave blank for all">
+    </form>
+</div>
+
+
+<div class="section">
+{% for task in tasks %}
+<div class="task-wrapper">
+{% if task.completed %}
+<div class="task-completed">{{task.title}}</h4></div>
+    <div>
+    <a href="{% url 'task_detail' task.pk %}"><i class="bi bi-eye"></i></a>
+    <a href="{% url 'task_update' task.pk %}"><i class="bi bi-pencil-fill"></i></a>
+    <a href="{% url 'task_delete' task.pk %}"><i class="bi bi-trash text-danger"></i></a>
+    </div>
+{% else %}
+<div class="task-no-completed">{{task.title}}</div>
+    <div>
+    <a href="{% url 'task_detail' task.pk %}"><i class="bi bi-eye"></i></a>
+    <a href="{% url 'task_update' task.pk %}"><i class="bi bi-pencil-fill"></i></a>
+    <a href="{% url 'task_delete' task.pk %}"><i class="bi bi-trash text-danger"></i></a>
+    </div>
+{% endif %}
+</div>
+{% endfor %}
+<div class="container text-center">
+<a href="{% url 'task_create' %}" class="todo">Add a Task</a>
+</div>
+</div>
+{% endblock %}
+
